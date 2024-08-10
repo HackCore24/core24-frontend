@@ -1,0 +1,81 @@
+@import 'styles/breakpoints';
+
+.root {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 12px 24px;
+  padding-left: 0;
+  background-color: white;
+
+  @include respond-to($mobileMax) {
+    padding: 12px 16px;
+    flex-direction: column;
+  }
+}
+
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 200px;
+  border-right: 1px solid #F3F4F6;
+  justify-content: center;
+
+  h2 {
+    color: #222;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+}
+
+.textsContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: auto;
+  margin-right: 24px;
+
+  @include respond-to($mobileMax) {
+    display: none;
+  }
+}
+
+.name,
+.city {
+  margin-block: 0;
+  padding: 0;
+}
+
+.city {
+  color: #858585;
+  text-align: right;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  background-color: #F3F4F6;
+  object-fit: cover;
+}
+
+.childrenContainer {
+  margin: 28px 0;
+}

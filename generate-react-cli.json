@@ -1,0 +1,57 @@
+{
+  "usesTypeScript": true,
+  "usesCssModule": true,
+  "cssPreprocessor": "scss",
+  "testLibrary": "None",
+  "component": {
+    "default": {
+      "path": "components",
+      "withStyle": true,
+      "withTest": false,
+      "withStory": false,
+      "withLazy": false,
+      "withStyled": false,
+      "withIndex": true,
+      "withTypeDeclare": true,
+      "customTemplates": {
+        "index": ".templates/component/index.ts",
+        "component": ".templates/component/TemplateName.tsx",
+        "typeDeclare": ".templates/component/TemplateName.d.ts",
+        "style": ".templates/component/TemplateName.module.scss"
+      }
+    },
+    "module": {
+      "path": "modules",
+      "withStyle": true,
+      "withTest": false,
+      "withStory": false,
+      "withLazy": false,
+      "withStyled": false,
+      "withIndex": true,
+      "withTypeDeclare": true,
+      "customTemplates": {
+        "index": ".templates/component/index.ts",
+        "component": ".templates/component/TemplateName.tsx",
+        "typeDeclare": ".templates/component/TemplateName.d.ts",
+        "style": ".templates/component/TemplateName.module.scss"
+      }
+    },
+    "screen": {
+      "path": "screens",
+      "withStyle": true,
+      "withTest": false,
+      "withStory": false,
+      "withLazy": false,
+      "withStyled": false,
+      "withIndex": true,
+      "withTypeDeclare": true,
+      "customTemplates": {
+        "index": ".templates/component/index.ts",
+        "component": ".templates/component/TemplateName.tsx",
+        "typeDeclare": ".templates/component/TemplateName.d.ts",
+        "style": ".templates/component/TemplateName.module.scss"
+      }
+    }
+  },
+  "usesStyledComponents": false
+}

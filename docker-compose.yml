@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  frontend:
+    build: .
+    restart: always
+    ports:
+      - 3000:3000
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.recplacefront.rule=Host(`24core.ru`)"
+      - "traefik.http.routers.recplacefront.entrypoints=https"
+    networks:
+      - traefik-proxy
+
+networks:
+  traefik-proxy:
+    name: traefik-proxy
+    external: true

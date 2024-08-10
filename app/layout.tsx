@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Unbounded } from "next/font/google";
 import "./globals.css";
+import NavBar from "@/modules/NavBar/NavBar";
+import { headers } from "next/headers";
 
-const inter = Inter({ subsets: ["latin"] });
+const unbounded = Unbounded({ subsets: ["latin"], variable: "--font-un" });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,9 +16,22 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
-  );
+  const headerList = headers();
+  const pathname = headerList.get("x-current-path");
+  const excludedPages = ["/login"];
+  if (excludedPages.includes(pathname || "")) {
+    return (
+      <html lang="ru" className={unbounded.variable}>
+        <body className={unbounded.className}>{children}</body>
+      </html>
+    );
+  } else {
+    return (
+      <html lang="ru" className={unbounded.variable}>
+        <body className={unbounded.className}>
+          <NavBar>{children}</NavBar>
+        </body>
+      </html>
+    );
+  }
 }

@@ -1,0 +1,40 @@
+// $mobile: 767;
+$mobile: 767;
+$tablet: 1439;
+$desktopSecond: 1919;
+
+$mobileMin: 'mobileMin';
+$mobileMax: 'mobileMax';
+$tabletMin: 'tabletMin';
+$tabletMax: 'tabletMax';
+$desktopSecondMin: 'desktopSecondMin';
+$desktopSecondMax: 'desktopSecondMax';
+
+$breakpoints: (
+  'mobileMin': (min-width: $mobile + 1 + px,
+  ),
+  'mobileMax': (max-width: $mobile + px,
+  ),
+  'tabletMin': (min-width: $tablet + 1 + px,
+  ),
+  'tabletMax': (max-width: $tablet + px,
+  ),
+  'desktopSecondMin': (min-width: $desktopSecond + 1 + px,
+  ),
+  'desktopSecondMax': (max-width: $desktopSecond + px,
+  ),
+  ) !default;
+
+@mixin respond-to($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media #{inspect(map-get($breakpoints, $breakpoint))} {
+      @content;
+    }
+  }
+
+  // If the key doesn't exist in the map
+  @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+    +"Available breakpoints are: #{map-keys($breakpoints)}.";
+  }
+}
