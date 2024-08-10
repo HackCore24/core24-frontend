@@ -13,3 +13,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
 }
+
+a {
+  text-decoration: inherit;
+  color: inherit;
+}

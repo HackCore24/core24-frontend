@@ -3,4 +3,5 @@ export interface IProjectCardProps {
   title: string;
   description: string;
   date: string;
+  onClick?: () => void;
 }

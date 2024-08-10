@@ -1,3 +1,3 @@
 export interface ILoginProps {
-  message?: string
+  botName: string;
 }

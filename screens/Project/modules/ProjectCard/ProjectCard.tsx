@@ -8,9 +8,10 @@ export const ProjectCard: FunctionComponent<IProjectCardProps> = ({
   date,
   title,
   description,
+  onClick,
 }): JSX.Element => {
   return (
-    <div className={styles.root}>
+    <div className={styles.root} onClick={onClick}>
       <div className={styles.container}>
         <Image
           src={image}

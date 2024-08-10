@@ -1,0 +1,145 @@
+.root {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 24px;
+}
+
+.card {
+  display: flex;
+  padding: 16px;
+  flex-direction: column;
+  gap: 40px;
+  border-radius: 32px;
+  background: #FFF;
+  width: 90%;
+  margin-top: 24px;
+}
+
+.desc {
+  color: #000;
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: 0.14px;
+  width: 100%;
+  display: flex;
+  word-break: break-all;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  svg {
+    flex: 1 0 auto
+  }
+}
+
+.stepperItemWrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
+  grid-column: 1 / 2;
+
+  &:last-child,
+  &:nth-last-child(2) {
+    .stepperLine {
+      display: none;
+      width: 0;
+    }
+  }
+
+  &.neutral {
+    .stepperLine {
+      background: #F3F3F6;
+    }
+
+    .stepperItem {
+      border-color: #B0CBE4;
+      box-shadow: none;
+
+      &::before {
+        background-color: #B0CBE4;
+      }
+    }
+  }
+
+  &.current {
+    .stepperLine {
+      background: #F3F3F6;
+    }
+
+    .stepperItem {
+      border-color: #FFD500;
+      box-shadow: 0 0 10px 0 #FFD500;
+
+      &::before {
+        background-color: #FFD500;
+      }
+    }
+  }
+}
+
+.stepperItem {
+  position: relative;
+  width: 15px;
+  height: 15px;
+  border-radius: 999px;
+  background-color: transparent;
+  border: 2px solid #34C759;
+  box-shadow: 0 0 10px 0 #34C759;
+  flex: 0 0 auto;
+
+  &::before {
+    content: '';
+    width: 70%;
+    height: 70%;
+    border-radius: 999px;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: #34C759;
+  }
+
+
+}
+
+.stepperLine {
+  width: 5px;
+  height: 100%;
+  background: rgba(52, 199, 89, 0.30);
+
+}
+
+.stepper {
+  display: grid;
+  grid-template-columns: 10% 90%;
+  height: 100%;
+}
+
+.stepTitle {
+  color: #000;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.14px;
+  margin: 0;
+}
+
+.stepDate {
+  color: rgba(0, 0, 0, 0.60);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.12px;
+}
+
+.stepInfoContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 28px;
+  margin-left: 8px;
+}

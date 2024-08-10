@@ -24,12 +24,15 @@ import { useProjectBudget } from "@/api/endpoints/project_budget";
 import { declOfNum, reduceNum } from "@/lib/helpers";
 import { NotImplementedModal } from "@/components/NotImplementedModal";
 import { useToggle } from "usehooks-ts";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 moment.locale("ru");
 
 export const Project: FunctionComponent<IProjectProps> = ({
   project,
 }): JSX.Element => {
+  const router = useRouter();
   const pAPI = useProjects();
   const psAPI = useProjectStatuses();
   const psDocsAPI = useProjectDocuments();
@@ -96,7 +99,9 @@ export const Project: FunctionComponent<IProjectProps> = ({
         </div>
       </div>
 
-      <StagesInfo statuses={projectStatuses!} />
+      <Link href={`/project/${project.id}/status`}>
+        <StagesInfo statuses={projectStatuses!} />
+      </Link>
 
       <div className={styles.buttonsContainer}>
         <BigButton startIcon={<PlusBlue />} onClick={toggleModalOpen}>
@@ -148,13 +153,14 @@ export const Project: FunctionComponent<IProjectProps> = ({
             {projectTasks
               ?.filter((t) => t.status === "in progress")
               .map((task) => (
-                <MultiButton
-                  startIcon={<CheckBlueFilled />}
-                  title={task.plan}
-                  description={moment(task.created_at).format("DD MMMM")}
-                  secondaryDescription="3 ответственных"
-                  onClick={toggleModalOpen}
-                />
+                <Link href={`/project/${project.id}/task/${task.id}`}>
+                  <MultiButton
+                    startIcon={<CheckBlueFilled />}
+                    title={task.plan}
+                    description={moment(task.created_at).format("DD MMMM")}
+                    secondaryDescription="3 ответственных"
+                  />
+                </Link>
               ))}
           </div>
         </div>
@@ -164,25 +170,28 @@ export const Project: FunctionComponent<IProjectProps> = ({
             {projectTasks
               ?.filter((t) => t.status === "pending")
               .map((task) => (
-                <MultiButton
-                  startIcon={<CheckBlueFilled />}
-                  title={task.plan}
-                  description={moment(task.created_at).format("DD MMMM")}
-                  secondaryDescription="3 ответственных"
-                  onClick={toggleModalOpen}
-                />
+                <Link href={`/project/${project.id}/task/${task.id}`}>
+                  <MultiButton
+                    startIcon={<CheckBlueFilled />}
+                    title={task.plan}
+                    description={moment(task.created_at).format("DD MMMM")}
+                    secondaryDescription="3 ответственных"
+                  />
+                </Link>
               ))}
           </div>
         </div>
       </Card>
       <Card title="Связанные проекты">
         {relatedProjects?.map((rp) => (
-          <ProjectCard
-            title={rp.title}
-            description={rp.company_name}
-            date={moment(rp.created_at).format("с DD MMMM YYYY г.")}
-            image={rp.caver || ""}
-          />
+          <Link href={`/project/${rp.id}`} className={styles.link}>
+            <ProjectCard
+              title={rp.title}
+              description={rp.company_name}
+              date={moment(rp.created_at).format("с DD MMMM YYYY г.")}
+              image={rp.caver || ""}
+            />
+          </Link>
         ))}
       </Card>
       <Card title="Платежи и финансы">

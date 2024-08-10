@@ -10,4 +10,8 @@ export interface IProjectTask extends IBaseModel {
   desired_result?: string;
   comments?: string;
   status: "pending" | "in progress" | "completed";
+  checkbox_tasks: {
+    title: string;
+    status: "Waiting" | "In progress" | "Completed";
+  }[];
 }

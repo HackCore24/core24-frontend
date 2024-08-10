@@ -20,7 +20,10 @@ export const NotImplementedModal: FunctionComponent<
         <h1 className={styles.title}>Это мы разработали за 48 часов</h1>
         <p className={styles.description}>
           Доступны следующие разделы:{" "}
-          <span className={styles.linked}>история документа</span>
+          <span className={styles.linked}>
+            просмотр карточки проекта, статусы проекта, задачи проекта,
+            связанные проекты
+          </span>
         </p>
       </div>
     </div>

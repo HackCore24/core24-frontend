@@ -8,13 +8,19 @@ const getByProjectID = async (project_id: string) => {
     .data;
 };
 
+const getByID = async (task_id: string) => {
+  return (await api.get<IProjectTask>(`${endpoint}/${task_id}`)).data;
+};
+
 export const useProjectTasks = () => {
   return {
     getByProjectID: (id: string) =>
       useSWR(`project-tasks-${id}`, () => getByProjectID(id)),
+    getByID: (id: string) => useSWR(`project-task-${id}`, () => getByID(id)),
   };
 };
 
 export const projectTasksAPI = {
   getByProjectID,
+  getByID,
 };

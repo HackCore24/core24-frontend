@@ -41,6 +41,7 @@ const StagesChain = ({
 
 export const StagesInfo: FunctionComponent<IStagesInfoProps> = ({
   statuses,
+  onClick,
 }): JSX.Element => {
   const sortedStatuses = useMemo(() => {
     return statuses.sort((a, b) => a.order - b.order);
@@ -74,7 +75,7 @@ export const StagesInfo: FunctionComponent<IStagesInfoProps> = ({
   }, [currentStatus, statuses]);
 
   return (
-    <div className={styles.root}>
+    <div className={styles.root} onClick={onClick}>
       <div className={styles.mainData}>
         <span className={styles.mutedTitle}>Статус проекта:</span>
         <div className={styles.buttonTitle}>
