@@ -10,7 +10,7 @@ import authAPI from "@/api/endpoints/auth";
 import { useCookie } from "@/hooks/useCookie";
 import { useRouter } from "next/navigation";
 import { TLoginButton, TLoginButtonSize } from "react-telegram-auth";
-import { ITelegramAuthData, ITelegramAuthResponse } from "@/api/models/Auth";
+import { ITelegramAuthResponse } from "@/api/models/Auth";
 import { AxiosError } from "axios";
 
 type LoginFields = {
