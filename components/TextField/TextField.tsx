@@ -1,6 +1,7 @@
 import { ForwardedRef, forwardRef, FunctionComponent } from "react";
 import { ITextFieldProps } from "./TextField.d";
 import styles from "./TextField.module.scss";
+import cs from "classnames";
 
 export const TextField = forwardRef<
   HTMLInputElement | HTMLTextAreaElement,
@@ -10,7 +11,7 @@ export const TextField = forwardRef<
     <input
       {...props}
       ref={ref as ForwardedRef<HTMLInputElement>}
-      className={styles.root}
+      className={cs(styles.root, props.className)}
     />
   );
 });

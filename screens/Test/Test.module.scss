@@ -1,0 +1,141 @@
+.root {}
+
+.img {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  width: 550px;
+  padding: 24px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+  z-index: 100;
+  border-radius: 24px;
+  background: white;
+
+  /* Elevation-3 */
+  box-shadow: 0px 12px 32px 6px rgba(72, 51, 213, 0.05);
+}
+
+.title {
+  flex: 1;
+  position: relative;
+  letter-spacing: -0.01em;
+  line-height: 24px;
+  font-weight: 600;
+}
+
+.icnMCloseIcon {
+  width: 24px;
+  position: relative;
+  height: 24px;
+  overflow: hidden;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+.button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.titleAndClose {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 8px;
+}
+
+.title1 {
+  align-self: stretch;
+  position: relative;
+  letter-spacing: -0.01em;
+  line-height: 24px;
+}
+
+.li {
+  margin-bottom: 0px;
+}
+
+.ul {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  padding-left: 21px;
+}
+
+.title2 {
+  align-self: stretch;
+  position: relative;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 300;
+}
+
+.titleParent {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 8px;
+}
+
+.modalWindowInner {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 18px;
+}
+
+.div {
+  position: relative;
+  letter-spacing: 0.01em;
+}
+
+.wrapper {
+  border-radius: 999px;
+  border: 1px solid #308ee5;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 16px;
+  cursor: pointer;
+}
+
+.container {
+  border-radius: 999px;
+  background-color: #308ee5;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 16px;
+  color: #fff;
+}
+
+.buttonGroup {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  font-size: 16px;
+  color: #000;
+}

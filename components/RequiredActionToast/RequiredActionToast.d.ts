@@ -1,3 +1,3 @@
 export interface IRequiredActionToastProps {
-  message?: string
+  onClick: () => void;
 }

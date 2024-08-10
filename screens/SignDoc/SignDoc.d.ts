@@ -1,3 +1,3 @@
 export interface ISignDocProps {
-  message?: string
+  document_id: string;
 }

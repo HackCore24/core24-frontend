@@ -5,14 +5,14 @@ import { Button } from "../Button";
 
 export const RequiredActionToast: FunctionComponent<
   IRequiredActionToastProps
-> = (): JSX.Element => {
+> = ({ onClick }): JSX.Element => {
   return (
     <div className={styles.root}>
       <div className={styles.content}>
         <h5 className={styles.mutedTitle}>Требуется действие:</h5>
         <h4 className={styles.mainTitle}>Подписание акта выполненных работ</h4>
       </div>
-      <Button>Перейти</Button>
+      <Button onClick={onClick}>Перейти</Button>
     </div>
   );
 };

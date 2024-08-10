@@ -1,0 +1,46 @@
+.root {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.textField {
+  background: white !important;
+}
+
+.fieldContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card {
+  display: flex;
+  padding: 16px;
+  gap: 16px;
+  border-radius: 32px;
+  background: #FFF;
+  align-items: center;
+}
+
+.button {
+  margin-top: auto;
+  cursor: pointer;
+  unset: all;
+  border: none;
+  outline: none;
+  display: inline-flex;
+  padding: 8px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 999px;
+  background: var(--Accent, #308EE5);
+  color: #FFF;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.16px;
+  font-family: var(--font-un);
+}

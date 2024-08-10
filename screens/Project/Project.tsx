@@ -26,6 +26,7 @@ import { NotImplementedModal } from "@/components/NotImplementedModal";
 import { useToggle } from "usehooks-ts";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useDocuments } from "@/api/endpoints/documents";
 
 moment.locale("ru");
 
@@ -38,6 +39,7 @@ export const Project: FunctionComponent<IProjectProps> = ({
   const psDocsAPI = useProjectDocuments();
   const psTasks = useProjectTasks();
   const psBudgetAPI = useProjectBudget();
+  const docAPI = useDocuments();
   const [modalOpened, toggleModalOpen] = useToggle();
 
   const { data: projectStatuses, isLoading: statusesLoading } =
@@ -50,6 +52,10 @@ export const Project: FunctionComponent<IProjectProps> = ({
     psTasks.getByProjectID(project.id);
 
   const { data: relatedProjects, isLoading: relatedLoading } = pAPI.getRelated(
+    project.id
+  );
+
+  const { data: docs, isLoading: docsLoading } = docAPI.getByProjectID(
     project.id
   );
 
@@ -75,7 +81,8 @@ export const Project: FunctionComponent<IProjectProps> = ({
     documentsLoading ||
     tasksLoading ||
     relatedLoading ||
-    budgetLoading
+    budgetLoading ||
+    docsLoading
   ) {
     return <div>Loading...</div>;
   }
@@ -209,7 +216,14 @@ export const Project: FunctionComponent<IProjectProps> = ({
         />
       </Card>
       <div className={styles.toastContainer}>
-        <RequiredActionToast />
+        <RequiredActionToast
+          onClick={() => {
+            const firstDoc = docs ? docs[0] : null;
+            if (firstDoc) {
+              router.push(`/project/${project.id}/sign_doc/${firstDoc.id}`);
+            }
+          }}
+        />
       </div>
     </div>
   );

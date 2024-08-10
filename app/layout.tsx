@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   const headerList = headers();
   const pathname = headerList.get("x-current-path");
-  const excludedPages = ["/login"];
+  const excludedPages = ["/login", "/project/data_check"];
   if (excludedPages.includes(pathname || "")) {
     return (
       <html lang="ru" className={unbounded.variable}>
