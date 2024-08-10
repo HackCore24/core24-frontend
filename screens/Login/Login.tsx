@@ -10,7 +10,7 @@ import authAPI from "@/api/endpoints/auth";
 import { useCookie } from "@/hooks/useCookie";
 import { useRouter } from "next/navigation";
 import { TLoginButton, TLoginButtonSize } from "react-telegram-auth";
-import { ITelegramAuthResponse } from "@/api/models/Auth";
+import { ITelegramAuthData, ITelegramAuthResponse } from "@/api/models/Auth";
 import { AxiosError } from "axios";
 
 type LoginFields = {
@@ -27,6 +27,7 @@ export const Login: FunctionComponent<ILoginProps> = ({
     formState: { errors },
   } = useForm<LoginFields>();
   const [error, setError] = useState<string | null>(null);
+  const [tgData, setTgData] = useState<ITelegramAuthData | null>(null);
   const [, setAccessToken] = useCookie("access_token");
   const router = useRouter();
   const onSubmit: SubmitHandler<LoginFields> = (data) => {
@@ -37,7 +38,19 @@ export const Login: FunctionComponent<ILoginProps> = ({
   };
 
   const onTGError = (e: AxiosError) => {
-    setError("Ошибка авторизации");
+    if (e.status === 404) {
+      authAPI
+        .telegramRegister({
+          ...tgData!,
+          password: "passwd",
+        })
+        .then(onTGSuccess)
+        .catch(() => {
+          setError("Ошибка авторизации");
+        });
+    } else {
+      setError("Ошибка авторизации");
+    }
   };
 
   const onTGSuccess = (resp: ITelegramAuthResponse) => {
@@ -72,6 +85,7 @@ export const Login: FunctionComponent<ILoginProps> = ({
             cornerRadius={999}
             lang="ru"
             onAuthCallback={(user) => {
+              setTgData(user);
               authAPI.telegramAuth(user).then(onTGSuccess).catch(onTGError);
             }}
             requestAccess={"write"}
