@@ -5,14 +5,19 @@ import styles from "./SignDoc.module.scss";
 
 import WordIcon from "@/public/icons/word.svg";
 import { useVariables } from "@/api/endpoints/variables";
-import { useDocuments } from "@/api/endpoints/documents";
+import documentsAPI, { useDocuments } from "@/api/endpoints/documents";
 import { TextField } from "@/components/TextField";
 import { IClientVar } from "@/api/models/Variable";
 import Check from "@/public/icons/check.svg";
+import { useRouter } from "next/navigation";
+import { useCookie } from "@/hooks/useCookie";
+import { useToggle } from "usehooks-ts";
 
 export const SignDoc: FunctionComponent<ISignDocProps> = ({
   document_id,
+  project_id,
 }): JSX.Element => {
+  const router = useRouter();
   const docAPI = useDocuments();
   const varsAPI = useVariables();
 
@@ -20,18 +25,22 @@ export const SignDoc: FunctionComponent<ISignDocProps> = ({
   const { data: vars, isLoading: varsLoading } =
     varsAPI.getByProjectID(document_id);
   const [currentVariables, setCurrentVariables] = useState<IClientVar[]>([]);
-  useEffect(() => {
-    vars?.forEach((v) => {
-      setCurrentVariables((prev) => [
-        ...prev,
-        {
-          title: v.title,
-          key: v.title,
-          input: "",
-        },
-      ]);
+  const [, setSigned] = useCookie("signed");
+  const [loading, setLoading] = useState(false);
+
+  const onSubmit = () => {
+    setLoading(true);
+    documentsAPI.generate(document_id, currentVariables).then(() => {
+      setLoading(false);
+      setSigned("yes");
+      router.replace(`/project/${project_id}`);
     });
-  }, [vars]);
+  };
+
+  if (docLoading || varsLoading) {
+    return <div>Загрузка</div>;
+  }
+
   return (
     <div className={styles.root}>
       <h1 className={styles.title}>Подписание акта выполненных работ</h1>
@@ -45,16 +54,25 @@ export const SignDoc: FunctionComponent<ISignDocProps> = ({
           <span className={styles.subtitle}>{v.title}</span>
           <TextField
             className={styles.textField}
-            value={currentVariables.find((cv) => cv.key === v.title)?.input}
+            value={currentVariables.find((cv) => cv.title === v.title)?.input}
             onChange={(e) => {
               setCurrentVariables((prev) => {
                 const copy = [...prev];
-                const elemIdx = copy.findIndex((p) => p.key === v.title);
-                copy[elemIdx] = {
-                  title: v.title,
-                  key: v.title,
-                  input: e.target.value,
-                };
+                const elemIdx = copy.findIndex((p) => p.title === v.title);
+                if (elemIdx >= 0) {
+                  copy[elemIdx] = {
+                    title: v.title,
+                    key: v.key,
+                    input: e.target.value,
+                  };
+                } else {
+                  copy.push({
+                    title: v.title,
+                    key: v.key,
+                    input: e.target.value,
+                  });
+                }
+
                 return copy;
               });
             }}
@@ -62,11 +80,14 @@ export const SignDoc: FunctionComponent<ISignDocProps> = ({
           />
         </div>
       ))}
-
-      <button className={styles.button}>
-        Подтвердить
-        <Check />
-      </button>
+      {!loading ? (
+        <button className={styles.button} onClick={onSubmit}>
+          Подтвердить
+          <Check />
+        </button>
+      ) : (
+        <button className={styles.button}>Загрузка...</button>
+      )}
     </div>
   );
 };

@@ -4,7 +4,7 @@ import { IProject } from "../models/Project";
 const endpoint = "/projects";
 
 export const getAll = async () => {
-  return (await api.get<IProject[]>(`${endpoint}/`)).data;
+  return (await api.get<IProject[]>(`${endpoint}/user`)).data;
 };
 
 export const getByID = async (id: string) => {

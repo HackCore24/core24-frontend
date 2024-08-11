@@ -27,6 +27,7 @@ import { useToggle } from "usehooks-ts";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useDocuments } from "@/api/endpoints/documents";
+import { useCookie } from "@/hooks/useCookie";
 
 moment.locale("ru");
 
@@ -41,6 +42,7 @@ export const Project: FunctionComponent<IProjectProps> = ({
   const psBudgetAPI = useProjectBudget();
   const docAPI = useDocuments();
   const [modalOpened, toggleModalOpen] = useToggle();
+  const [signed] = useCookie("signed");
 
   const { data: projectStatuses, isLoading: statusesLoading } =
     psAPI.getByProjectID(project.id);
@@ -215,16 +217,18 @@ export const Project: FunctionComponent<IProjectProps> = ({
           startIcon={<CheckGreenFilled />}
         />
       </Card>
-      <div className={styles.toastContainer}>
-        <RequiredActionToast
-          onClick={() => {
-            const firstDoc = docs ? docs[0] : null;
-            if (firstDoc) {
-              router.push(`/project/${project.id}/sign_doc/${firstDoc.id}`);
-            }
-          }}
-        />
-      </div>
+      {signed !== "yes" && (
+        <div className={styles.toastContainer}>
+          <RequiredActionToast
+            onClick={() => {
+              const firstDoc = docs ? docs[0] : null;
+              if (firstDoc) {
+                router.push(`/project/${project.id}/sign_doc/${firstDoc.id}`);
+              }
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 };

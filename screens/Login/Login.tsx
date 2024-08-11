@@ -33,7 +33,7 @@ export const Login: FunctionComponent<ILoginProps> = ({
   const onSubmit: SubmitHandler<LoginFields> = (data) => {
     authAPI.login(data).then((res) => {
       setAccessToken(res.access_token);
-      router.replace("/");
+      window.location.replace("/");
     });
   };
 
@@ -55,7 +55,7 @@ export const Login: FunctionComponent<ILoginProps> = ({
 
   const onTGSuccess = (resp: ITelegramAuthResponse) => {
     setAccessToken(resp.access_token);
-    router.push("/");
+    window.location.replace("/");
   };
 
   return (
