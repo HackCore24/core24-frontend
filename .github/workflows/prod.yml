@@ -5,7 +5,7 @@ on:
       - main
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: fdeploy
     steps:
       - uses: actions/checkout@v3
       - name: Получение env
