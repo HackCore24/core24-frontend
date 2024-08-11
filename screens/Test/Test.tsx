@@ -1,10 +1,30 @@
+"use client";
 import { FunctionComponent } from "react";
 import { ITestProps } from "./Test.d";
 import styles from "./Test.module.scss";
 import testImg from "@/public/image.png";
 import Image from "next/image";
+import axios from "axios";
 
 export const Test: FunctionComponent<ITestProps> = (): JSX.Element => {
+  const onDL = () => {
+    const uri =
+      "https://storage.yandexcloud.net/recplace/%D0%A1%D0%BC%D0%B5%D1%82%D0%B0%20%D0%A1%D1%82%D1%80%D0%BE%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D1%81%D1%82%D0%B2%D0%BE%20%D0%B6%D0%B8%D0%BB%D0%BE%D0%B3%D0%BE%20%D0%BA%D0%BE%D0%BC%D0%BF%D0%BB%D0%B5%D0%BA%D1%81%D0%B0.xlsx";
+    const r = axios.get(uri, { responseType: "blob" }).then((r) => {
+      const url = window.URL.createObjectURL(new Blob([r.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute(
+        "download",
+        `Смета Строительство жилого комплекса.xlsx`
+      );
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+      return "ok";
+    });
+  };
   return (
     <div className={styles.root}>
       <Image
@@ -41,9 +61,11 @@ export const Test: FunctionComponent<ITestProps> = (): JSX.Element => {
             <div className={styles.title1}>Подобрали следующие позиции</div>
             <div className={styles.title2}>
               <ul className={styles.ul}>
-                <li className={styles.li}>Позиция 1</li>
-                <li className={styles.li}>Позиция 2</li>
-                <li>в</li>
+                <li className={styles.li}>Щебень</li>
+                <li className={styles.li}>Песок</li>
+                <li>Асфальтобетонная смесь</li>
+                <li>Бордюрный камень</li>
+                <li>Тротуарная плитка</li>
               </ul>
             </div>
           </div>
@@ -58,7 +80,9 @@ export const Test: FunctionComponent<ITestProps> = (): JSX.Element => {
               cursor: "pointer",
             }}
           >
-            <div className={styles.div}>Продолжить</div>
+            <div className={styles.div} onClick={onDL}>
+              Продолжить
+            </div>
           </div>
         </div>
       </div>
