@@ -11,6 +11,10 @@ const getByProjectID = async (project_id: string) => {
   ).data;
 };
 
+const checkStatus = async (project_id: string, status_id: string) => {
+  return (await api.post(`${endpoint}/reach/${status_id}/${project_id}`)).data;
+};
+
 export const useProjectStatuses = () => {
   return {
     getByProjectID: (project_id: string) =>
@@ -19,3 +23,10 @@ export const useProjectStatuses = () => {
       ),
   };
 };
+
+const projectStatusesAPI = {
+  checkStatus,
+  getByProjectID,
+};
+
+export default projectStatusesAPI;

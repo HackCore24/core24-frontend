@@ -12,6 +12,8 @@ import Check from "@/public/icons/check.svg";
 import { useRouter } from "next/navigation";
 import { useCookie } from "@/hooks/useCookie";
 import { useToggle } from "usehooks-ts";
+import projectsAPI from "@/api/endpoints/projects";
+import projectStatusesAPI from "@/api/endpoints/project_statuses";
 
 export const SignDoc: FunctionComponent<ISignDocProps> = ({
   document_id,
@@ -30,11 +32,17 @@ export const SignDoc: FunctionComponent<ISignDocProps> = ({
 
   const onSubmit = () => {
     setLoading(true);
-    documentsAPI.generate(document_id, currentVariables).then(() => {
+    (async () => {
+      await documentsAPI.generate(document_id, currentVariables);
+      const statuses = await projectStatusesAPI.getByProjectID(project_id);
+      const latestStatus = statuses
+        .sort((a, b) => a.order - b.order)
+        .filter((s) => !s.is_passed)[0];
+      await projectStatusesAPI.checkStatus(project_id, latestStatus.id);
       setLoading(false);
       setSigned("yes");
       router.replace(`/project/${project_id}`);
-    });
+    })();
   };
 
   if (docLoading || varsLoading) {
