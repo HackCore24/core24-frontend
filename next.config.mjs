@@ -22,6 +22,19 @@ const nextConfig = {
         port: "",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "s3-alpha-sig.figma.com",
+        port: "",
+        pathname: "/**",
+      },
+
+      {
+        protocol: "https",
+        hostname: "novostroikispb.ru",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
 };
